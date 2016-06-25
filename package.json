@@ -1,0 +1,14 @@
+{
+  "name": "20160625learn",
+  "version": "1.0.0",
+  "description": "Learning native js/js frameworks",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Artemov K.V.",
+  "license": "ISC",
+  "devDependencies": {
+    "webpack": "^1.13.1"
+  }
+}
