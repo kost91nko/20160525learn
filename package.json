@@ -2,7 +2,7 @@
   "name": "20160625learn",
   "version": "1.0.0",
   "description": "Learning native js/js frameworks",
-  "main": "index.js",
+  "main": "index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -13,7 +13,18 @@
   },
   "license": "ISC",
   "devDependencies": {
+    "babel-core": "^6.10.4",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "^6.9.0",
     "bower": "^1.7.9",
+    "css-loader": "^0.23.1",
+    "json-loader": "^0.5.4",
+    "source-map-loader": "^0.1.5",
+    "style-loader": "^0.13.1",
     "webpack": "^1.13.1"
+  },
+  "dependencies": {
+    "babel-polyfill": "^6.9.1",
+    "extract-text-webpack-plugin": "^1.0.1"
   }
 }
