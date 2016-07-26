@@ -1,0 +1,5 @@
+[ignore]
+.*/bin
+.*/node_modules
+
+[include]
