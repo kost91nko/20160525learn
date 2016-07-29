@@ -29,7 +29,7 @@ gulp.task("bundle-livereload", function(){
      * Run Browsersync and use middleware for Hot Module Replacement
      */
     browserSync.init({
-        server: 'bin',
+        server: config.paths.src,
         open: true,
         logFileChanges: true,
         port: 8080,
@@ -41,8 +41,8 @@ gulp.task("bundle-livereload", function(){
         ],
         plugins: ['bs-fullscreen-message'],
         files: [
-            config.path.dist('*.css'),
-            config.path.dist('*.html')
+            config.path.src('*.css'),
+            config.path.src('*.html')
         ]
     });
 });

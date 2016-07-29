@@ -1,0 +1,1 @@
+ module.exports = "It's works from content.js WWWWWWWWAAAAAAAATCH MODE"

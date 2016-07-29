@@ -18,7 +18,6 @@ for (var pathName in exports.paths) {
     exports.paths[pathName] = path.resolve(__dirname, '..', exports.paths[pathName])
     exports.path[pathName] = (function(pathValue){
       return function pathJoin() {
-          gutil.log(pathValue);
           var funcArgs = Array.prototype.slice.call(arguments);
           var joinArgs = [pathValue].concat(funcArgs);
           return path.join.apply(this, joinArgs);
