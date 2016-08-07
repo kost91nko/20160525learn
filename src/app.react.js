@@ -3,23 +3,33 @@ import {render} from 'react-dom';
 import CommentBox from './react/Comments/CommentBox.js';
 import FilterableProductTable from './react/FilterableProductTable/FilterableProductTable.js'
 import TodoList from './react/TodoList/TodoList.js';
+import { counterStore } from './react/store.js';
 
-const product = {
-  price: 100,
-  name: "iphone",
-  stocked: true
-};
-
-var PRODUCTS = [
-  {category: 'Sporting Goods', price: '$49.99', stocked: true, name: 'Football'},
-  {category: 'Sporting Goods', price: '$9.99', stocked: true, name: 'Baseball'},
-  {category: 'Sporting Goods', price: '$29.99', stocked: false, name: 'Basketball'},
-  {category: 'Electronics', price: '$99.99', stocked: true, name: 'iPod Touch'},
-  {category: 'Electronics', price: '$399.99', stocked: false, name: 'iPhone 5'},
-  {category: 'Electronics', price: '$199.99', stocked: true, name: 'Nexus 7'}
-];
+const Counter = ({
+  value,
+  onIncrement,
+  onDecrement
+}) => (
+  <div>
+    <h1>{value}</h1>
+    <button onClick={onIncrement}>+</button>
+    <button onCLick={onDecrement}>-</button>
+  </div>
+);
 
 render(
-  <TodoList />,
+  <Counter
+    value={counterStore.getState()}
+    onIncrement = {() =>
+      counterStore.dispatch({
+        type: 'INCREMENT'
+      })
+    }
+    onDecrement = {() =>
+      counterStore.dispatch({
+        type: 'DECREMENT'
+      })
+    }
+  />,
   document.getElementById('content')
 );
