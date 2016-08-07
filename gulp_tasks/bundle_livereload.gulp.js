@@ -36,7 +36,10 @@ gulp.task("bundle-livereload", function(){
         middleware: [
             webpackDevMiddleware(webpackCompiler, {
                 publicPath: webpackConfig.output.publicPath,
-                stats: {colors: true}
+                stats: {
+                  colors: true,
+                  chunks: false
+                }
             })
         ],
         plugins: ['bs-fullscreen-message'],
