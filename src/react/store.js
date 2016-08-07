@@ -1,4 +1,5 @@
-import { createStore } from 'redux';
+import { createStore, applyMiddleware, compose  } from 'redux';
+import DevTools from './DevTools/DevTools.js';
 
 const counter = (state = 0, action) =>{
   switch (action.type){
@@ -11,6 +12,12 @@ const counter = (state = 0, action) =>{
   }
 }
 
-const coutnerStore = createStore(counter);
+const enhancer = compose(
+  // Middleware you want to use in development:
+  //applyMiddleware(d1, d2, d3),
+  // Required! Enable Redux DevTools with the monitors you chose
+  DevTools.instrument()
+);
 
-export coutnerStore;
+const coutnerStore = createStore(counter, enhancer);
+export default coutnerStore;
