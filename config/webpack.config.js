@@ -12,7 +12,7 @@ module.exports = {
   },
 	entry:{
   	app: config.path.src("app.js"),
-		vendor: [ "jquery", "angular" ]
+		vendor: [ "jquery" ]
 	},
 	output: {
 		path: config.paths.src,

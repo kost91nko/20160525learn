@@ -8,6 +8,7 @@ var gulp = require('gulp');
 var config = require('../config/common.config');
 var stripAnsi = require('strip-ansi');
 var gutil = require("gulp-util");
+var runServer = require("../devServer.js");
 gulp.task("bundle-livereload", function(){
     /**
      * Reload all devices when bundle is complete
@@ -29,7 +30,9 @@ gulp.task("bundle-livereload", function(){
      * Run Browsersync and use middleware for Hot Module Replacement
      */
     browserSync.init({
-        server: config.paths.src,
+        server:{
+          baseDir: config.paths.src
+        },
         open: true,
         logFileChanges: true,
         port: 8080,
@@ -40,7 +43,7 @@ gulp.task("bundle-livereload", function(){
                   colors: true,
                   chunks: false
                 }
-            })
+            }),
         ],
         plugins: ['bs-fullscreen-message'],
         files: [
@@ -49,7 +52,35 @@ gulp.task("bundle-livereload", function(){
         ]
     });
 });
-
+gulp.task('server', function(cb){
+  runServer(
+    'localhost',
+    '8080',
+    '../src',
+    webpackDevMiddleware(webpackCompiler, {
+        publicPath: webpackConfig.output.publicPath,
+        stats: {
+          colors: true,
+          chunks: false
+        }
+    })
+  );
+});
+gulp.task("browser-sync-proxy", function(callback){
+  browserSync.init({
+      open: true,
+      logFileChanges: true,
+      proxy: 'localhost:8080',
+      host: '192.168.22.22',
+      files: [
+          config.path.src('*.css'),
+          config.path.src('*.html')
+      ]
+  });
+  webpackCompiler.plugin('done', stats => {
+    browserSync.reload();
+  });
+})
 gulp.task("webpack-dev-server", function(callback) {
     new WebpackDevServer(webpackCompiler, {
         contentBase: config.paths.dist,
