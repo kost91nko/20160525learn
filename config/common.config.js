@@ -2,7 +2,8 @@
 var gutil = require('gulp-util');
 var path = require('path');
 
-exports.ngModule = 'app';
+exports.ngModule ='app';
+exports.port = 7000;
 
 exports.paths = {
   src: 'src',

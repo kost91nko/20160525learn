@@ -1,5 +1,12 @@
-var loaderUtils = require("loader-utils");
+function* generator1(){
+  yield Promise.resolve(1);
+  yield Promise.resolve(2);
+  yield Promise.resolve(3);
+}
 
-var query = loaderUtils.parseQuery("?sourceMap&modules&importLoaders=2&localIdentName=[name]-[local]");
+var iterable1 = generator1();
 
-console.log(query);
+for(var item of iterable1) {
+  item.then(value => console.log(value));
+}
+console.log('after');

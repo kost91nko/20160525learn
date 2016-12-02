@@ -9,6 +9,42 @@ var config = require('../config/common.config');
 var stripAnsi = require('strip-ansi');
 var gutil = require("gulp-util");
 var runServer = require("../devServer.js");
+
+var runServerB = function() {
+  runServer(
+    'localhost',
+    '8080',
+    '../src',
+    webpackDevMiddleware(webpackCompiler, {
+      publicPath: webpackConfig.output.publicPath,
+      stats: {
+        colors: true,
+        chunks: false
+      }
+    })
+  );
+}
+
+runServerB.bind(this);
+
+var runBs = function () {
+  browserSync.init({
+    open: true,
+    logFileChanges: true,
+    proxy: 'localhost:8080',
+    host: '192.168.22.22',
+    files: [
+      config.path.src('*.css'),
+      config.path.src('*.html')
+    ]
+  });
+  webpackCompiler.plugin('done', stats => {
+    browserSync.reload();
+  });
+};
+
+runBs.bind(this);
+
 gulp.task("bundle-livereload", function(){
     /**
      * Reload all devices when bundle is complete
@@ -53,34 +89,11 @@ gulp.task("bundle-livereload", function(){
     });
 });
 gulp.task('server', function(cb){
-  runServer(
-    'localhost',
-    '8080',
-    '../src',
-    webpackDevMiddleware(webpackCompiler, {
-        publicPath: webpackConfig.output.publicPath,
-        stats: {
-          colors: true,
-          chunks: false
-        }
-    })
-  );
+  runServerB();
 });
 gulp.task("browser-sync-proxy", function(callback){
-  browserSync.init({
-      open: true,
-      logFileChanges: true,
-      proxy: 'localhost:8080',
-      host: '192.168.22.22',
-      files: [
-          config.path.src('*.css'),
-          config.path.src('*.html')
-      ]
-  });
-  webpackCompiler.plugin('done', stats => {
-    browserSync.reload();
-  });
-})
+  runBs();
+});
 gulp.task("webpack-dev-server", function(callback) {
     new WebpackDevServer(webpackCompiler, {
         contentBase: config.paths.dist,

@@ -11,3 +11,4 @@ hub([config.path.tasks('*.js')]);
 //-------------------------------------------------
 // Default gulp task that includes all
 gulp.task('default', ['server', 'browser-sync-proxy']);
+

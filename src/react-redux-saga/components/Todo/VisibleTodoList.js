@@ -1,49 +1,17 @@
 import TodoList from './TodoList.js';
 import { connect } from 'react-redux';
-import { normalize } from 'normalizr';
 import React, { Component } from 'react';
 import { getVisibleTodos, getErrorMessage, getIsFetching } from '../../reducers';
-import * as api from '../../api';
-import * as schema from '../../api/schema.js';
 import FetchError from './FetchError.js';
+import { toggleTodo, fetchTodos, requestTodos} from '../../actions';
 
-const toggleTodo = (id) => ({
-  type: 'TOGGLE_TODO',
-  id,
-});
 
-const fetchTodos = (filter) => (dispatch, getState) => {
-  if(getIsFetching(getState(), filter)){
-    return Promise.resolve();
-  }
-
-  dispatch({
-    type: 'FETCH_TODOS_REQUEST',
-    filter,
-  });
-
-  return api.fetchTodos(filter).then(
-    response => {
-      console.log(
-        'normalized response',
-      );
-      dispatch({
-        type: 'FETCH_TODOS_SUCCESS',
-        filter,
-        response: normalize(response, schema.arrayOfTodos),
-      })
-    },
-    error => {
-      dispatch({
-        type: 'FETCH_TODOS_FAILURE',
-        filter,
-        message: error.message || 'Something went wrong'
-      })
-    }
-  );
-};
 
 class VisibleTodoList extends Component {
+  constructor(){
+    super();
+    console.log("Hello");
+  }
 
   componentDidMount(){
     this.fetchData();
@@ -56,8 +24,8 @@ class VisibleTodoList extends Component {
   }
 
   fetchData() {
-    const { filter, fetchTodos } = this.props;
-    fetchTodos(filter).then(() => console.log("done!"));
+    const { filter, fetchTodos, requestTodos } = this.props;
+    requestTodos(filter);
   }
 
   render() {
@@ -103,7 +71,7 @@ const mapStateToProps = (state, ownProps) => {
 
 VisibleTodoList = connect(
   mapStateToProps,
-  { onTodoClick: toggleTodo, fetchTodos },
+  { onTodoClick: toggleTodo, fetchTodos, requestTodos },
 )(VisibleTodoList);
 
 export default VisibleTodoList;

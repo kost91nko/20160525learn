@@ -1,2 +1,2 @@
-import './app.scss';
-import './app.react.js';
+//import './app.scss';
+import './angular1/app.module';

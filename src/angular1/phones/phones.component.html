@@ -1,0 +1,40 @@
+<!-- General tests -->
+<div>
+Selected Value: <span>{{$ctrl.selectedValue}}</span>
+<ul >
+  <li ng-repeat="phone in $ctrl.phones" ng-bind="phone.name"></li>
+</ul>
+<input
+  ng-model="$ctrl.phones[0].name"
+  ng-keydown="$ctrl.enterKey($event, $ctrl.phones[0].name)"
+  type="text"
+/>
+<!-- Custom filter test -->
+<div>
+  Durations Filter test: {{ 1 | durations }}
+</div>
+
+<!-- ng-bind-html test -->
+<div>
+  <span>NgBindHtml test:</span>
+  <div ng-bind-html="$ctrl.deliberatelyTrustDangerousSnippet()"></div>
+</div>
+
+<!-- CSP test -->
+<div id="csp-test">
+  <label>CSP test</label>
+  <div>
+    <button ng-click="$ctrl.inc()" id="inc">Increment</button>
+      <span id="counter">
+        {{$ctrl.counter}}
+      </span>
+  </div>
+
+  <div>
+    <button ng-click="$ctrl.evil()" id="evil">Evil</button>
+      <span id="evilError">
+        {{$ctrl.evilError}}
+      </span>
+  </div>
+</div>
+</div>

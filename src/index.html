@@ -1,14 +1,38 @@
-<html>
-    <head>
-        <meta charset="utf-8">
-        <!-- <link rel="stylesheet" href="app.bundle.css"></link> -->
-    </head>
-    <body>
-
-      <div id="content">
-      </div>
-
-      <script type="text/javascript" src="vendor.bundle.js" charset="utf-8"></script>
-      <script type="text/javascript" src="app.bundle.js" charset="utf-8"></script>
-    </body>
+<!DOCTYPE html>
+<html lang="en" ng-app="docsTabsExample">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <my-tabs>
+    <my-pane title="Hello">
+      <p>Lorem ipsum dolor sit amet</p>
+    </my-pane>
+    <my-pane title="World">
+      <em>Mauris elementum elementum enim at suscipit.</em>
+      <p><a href ng-click="i = i + 1">counter: {{i || 0}}</a></p>
+    </my-pane>
+  </my-tabs>
+   <!--Form test-->
+  <!--<form name="myForm" ng-controller="FormController">-->
+      <!--&lt;!&ndash;<label for="currentPhone">Select phone:</label>&ndash;&gt;-->
+      <!--&lt;!&ndash;<select&ndash;&gt;-->
+        <!--&lt;!&ndash;id="currentPhone"&ndash;&gt;-->
+        <!--&lt;!&ndash;ng-model="currentPhone"&ndash;&gt;-->
+        <!--&lt;!&ndash;ng-options="phone.name for phone in phones track by phone.id"&ndash;&gt;-->
+      <!--&lt;!&ndash;&gt;&ndash;&gt;-->
+        <!--&lt;!&ndash;<option value="">Select Phone</option>&ndash;&gt;-->
+      <!--&lt;!&ndash;</select>&ndash;&gt;-->
+      <!--<label for="phoneName">Phone Name: </label>-->
+      <!--<input id="phoneName" name="phoneName" ng-pattern="phonePattern" required type="text" placeholder="Name of your phone" ng-model="currentPhone.name"/>-->
+      <!--<label for="phoneSnippet">Phone Snippet:</label>-->
+      <!--<input id="phoneSnippet" name="phoneSnippet" type="text" placeholder="Snippet of your phone" ng-model="currentPhone.snippet" />-->
+      <!--<br>-->
+      <!--<code>myForm.input.$valid = {{myForm.phoneName.$valid}}</code><br>-->
+      <!--<code>myForm.input.$error = {{myForm.phoneName.$error}}</code><br>-->
+      <!--<code>myForm.$valid = {{myForm.$valid}}</code><br>-->
+      <!--<code>myForm.$error.required = {{!!myForm.$error.required}}</code><br>-->
+  <!--</form>-->
+</body>
 </html>

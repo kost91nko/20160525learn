@@ -1,34 +1,61 @@
 var path = require("path");
 var webpack = require("webpack");
-var config = require("./common.config")
+var config = require("./common.config");
 
 module.exports = {
   resolve: {
-    modulesDirectories: ["web_modules","node_modules"]
+    extensions: ['.js', '.json', '.jsx'],
+    modules: [config.paths.src, 'node_modules'],
   },
-  entry:{
-    app: config.path.dist("app1.js")
-    vendor: [ "jquery", "angular" ]
-  },
-  output: {
-    path: config.paths.src
-    filename: "app.bundle.js",
-    publicPath: '/'
-  },
+  entry:{},
+  output: {},
   module: {
     loaders: [
-      { test: /\.css$/, loader: "style!css" },
-      { test: /\.json$/, loader: "json-loader"},
       {
         test: /\.js$/,
         loader: "babel-loader",
-        exclude: [/node_modules/] ,
         include: config.paths.src
-      }
+      },
+      {
+        test: /\.(jpe?g|png|gif|svg)$/i,
+        loaders: [
+          'file?hash=sha512&digest=hex&name=[hash].[ext]',
+          'image-webpack'
+        ]
+      },
+      // {
+      //   test: /\.scss$/,
+      //   loader: null
+      // },
+      {
+        test: /\.json$/,
+        loader: 'json-loader',
+      },
+      {
+        test: /\.txt$/,
+        loader: 'raw-loader',
+      },
+      {
+        test: /\.html$/,
+        loader: 'raw-loader',
+        exclude: [config.path.src('index.html')]
+      },
+      {
+        test: /\.(woff|woff2)$/,
+        loader: 'url-loader',
+        query: {
+          name: '[path][name].[ext]?[hash]',
+          limit: 10000,
+        },
+      },
+      {
+        test: /\.(eot|ttf|wav|mp3)$/,
+        loader: 'file-loader',
+        query: {
+          name: '[path][name].[ext]?[hash]',
+        },
+      },
     ]
   },
-  devtool: 'cheap-module-eval-source-map',
-  plugins: [
-    new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"vendor", /* filename= */"vendor.bundle.js")
-  ]
+  devtool: 'inline-source-map',
 }
